@@ -51,8 +51,8 @@
           pieDataOfAge = [ageTypePie['20_29'] , ageTypePie['30_39'] , ageTypePie['40_49'] , ageTypePie['50_59'] , ageTypePie['60up']]
 
           pieDataOfGender = [genderPie['男'],genderPie['女']]
-          window.theFigFtime.data.datasets[0].data=lineDataOfFtime
-          window.theFigFtime.update()
+          // window.theFigFtime.data.datasets[0].data=lineDataOfFtime
+          // window.theFigFtime.update()
 
           // window.theFigAge.data.datasets[0].data=pieDataOfAge
           // window.theFigAge.update()
@@ -60,7 +60,7 @@
           // window.theFigGender.data.datasets[0].data=pieDataOfGender
           // window.theFigGender.update()
 
-
+          console.log(v_list)
           showTheLocal(v_list)
       }
 
@@ -100,89 +100,6 @@
         $("#villageTable").html(tableBodyStr)
       }
 
-
-      // function drawTheFigAge(){
-      //     var configFigAge = {
-      //       type: 'doughnut',
-      //       data: {
-      //         datasets: [{
-      //           data: [1,1,1,1,1],
-      //           backgroundColor: [
-      //             window.chartColors.red,
-      //             window.chartColors.orange,
-      //             window.chartColors.yellow,
-      //             window.chartColors.green,
-      //             // window.chartColors.blue,
-      //             window.chartColors.grey,
-      //           ],
-      //           label: '年齡層佔比'
-      //         }],
-      //         labels: ['20-29','30-39','40-49','50-59','60 up']
-      //       },
-      //       options: {
-      //         responsive: true,
-      //         legend: {
-      //           position: 'left',
-      //           labels: {
-      //             boxWidth:5,
-      //             fontSize: 13
-      //           }
-      //         },
-      //         title: {
-      //           display: true,
-      //           text: '年齡層佔比',
-      //           fontSize: 8
-      //         },
-      //         animation: {
-      //           animateScale: true,
-      //           animateRotate: true
-      //         }
-      //       }
-      //     };
-
-      //     var ctx_FigAge = document.getElementById('canvas_FigAge').getContext('2d');
-      //     window.theFigAge = new Chart(ctx_FigAge, configFigAge);
-      // }
-
-
-      // function drawTheFigGender(){
-      //     var configFigGender = {
-      //       type: 'doughnut',
-      //       data: {
-      //         datasets: [{
-      //           data: [1,1],
-      //           backgroundColor: [
-      //             window.chartColors.blue,
-      //             window.chartColors.red
-      //           ],
-      //           label: '性別佔比'
-      //         }],
-      //         labels: ['男','女']
-      //       },
-      //       options: {
-      //         responsive: true,
-      //         legend: {
-      //           position: 'left',
-      //           labels: {
-      //             boxWidth: 15,
-      //             fontSize: 14
-      //           }
-      //         },
-      //         title: {
-      //           display: true,
-      //           text: '性別佔比',
-      //           fontSize: 10
-      //         },
-      //         animation: {
-      //           animateScale: true,
-      //           animateRotate: true
-      //         }
-      //       }
-      //     };
-
-      //     var ctx_FigGender = document.getElementById('canvas_FigGender').getContext('2d');
-      //     window.theFigGender = new Chart(ctx_FigGender, configFigGender);
-      // }
 
       function drawTheFigTotal(){
           var timeFormat = 'HH:mm';
@@ -316,7 +233,6 @@
         $("#selectedClock").html("【"+labelsSet[f_index]+"】")
         showDataInMap(ftimeIndex,f_index)
         indexFtime=f_index
-        QueryTheBoundsPoint()
       }
 
 
@@ -334,22 +250,54 @@
          setTheSelectedClock(ftimeIndex,idx)
       }
 
-
       function showDataInMap(thePointLogs, indexTime){
         thisPointLogs = thePointLogs[indexTime]
+        console.log(thisPointLogs)
         showItemAll = []
+
         for( itemP in thisPointLogs ){
           xyArr = itemP.split("_")
           x = parseFloat(xyArr[0])
           y = parseFloat(xyArr[1])
-          thisWeight = parseInt(thisPointLogs[itemP])
-          itemSeeeet = {lat: y , lng: x , count:thisWeight}
-          showItemAll.push(itemSeeeet)
+          cnt  = parseInt(thisPointLogs[itemP])
+          var filterCNT = 50
+          if (cnt>=filterCNT){
+            var marker = L.marker(new L.LatLng(y, x), { title: thisPointLogs[itemP]  });
+            marker.bindPopup("人數："+thisPointLogs[itemP]);
+            markers.addLayer(marker);
+          }
+          
         }
-        var testData = {max : maxVal , data:showItemAll}
+        console.log(markers)
+        map.addLayer(markers)
+        console.log(map)
 
-        heatmapLayer.setData(testData)
+
+      // for (var i = 0; i < ftimeIndex[indexFtime].length; i++) {
+      //   var a = addressPoints[i];
+      //   var title = a[2];
+      //   var marker = L.marker(new L.LatLng(a[0], a[1]), { title: title });
+      //   marker.bindPopup(title);
+      //   markers.addLayer(marker);
+      // }
+
+      // map.addLayer(markers);
+
+
+
+        // for( itemP in thisPointLogs ){
+        //   xyArr = itemP.split("_")
+        //   x = parseFloat(xyArr[0])
+        //   y = parseFloat(xyArr[1])
+        //   thisWeight = parseInt(thisPointLogs[itemP])
+        //   itemSeeeet = {lat: y , lng: x , count:thisWeight}
+        //   showItemAll.push(itemSeeeet)
+        // }
+        // var testData = {max : maxVal , data:showItemAll}
+
+        // heatmapLayer.setData(testData)
       }
+
 
 
 
@@ -401,10 +349,12 @@
 
               window.theFigTotal.data.datasets[0].data=totalNum;
               window.theFigTotal.update()
+              // console.log(ftimeIndex)
+
               setTheSelectedClock(ftimeIndex, indexFtime );
+
               return;
             }
-
           }
         });
       }

@@ -113,13 +113,11 @@
       var map = L.map('map', {editable: true});
       map.setView([25.115387, 121.511559], 13);
       // var r = map.editTools.startRectangle();
-
-      var tiles =  L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/toner/{z}/{x}/{y}{r}.{ext}', {
-        attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-        subdomains: 'abcd',
+      var tiles =  L.tileLayer('http://mt{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}', {
+        attribution: '&copy; <a href="https://www.google.ca/maps">Google</a>,Hugo Tsai for test' ,
+        subdomains: '0123',
         minZoom: 0,
         maxZoom: 20,
-        ext: 'png'
       }).addTo(map);
 
 

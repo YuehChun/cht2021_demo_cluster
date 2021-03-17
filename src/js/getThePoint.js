@@ -155,76 +155,6 @@
 
 
 
-      // function drawTheFigFtime(){
-      //     var timeFormat = 'HH:mm';
-      //     var color = Chart.helpers.color;
-      //     var configFigFtime = {
-      //       type: 'line',
-      //       data: {
-      //         labels: ['00:00', '01:00', '02:00', '03:00', '04:00', '05:00', '06:00', '07:00', '08:00', '09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00', '20:00', '21:00', '22:00', '23:00'],
-      //         datasets: [ {
-      //           label: "人數",
-      //           backgroundColor: color(window.chartColors.blue).alpha(0.5).rgbString(),
-      //           borderColor: window.chartColors.blue,
-      //           fill: false,
-      //           data: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
-      //         }]
-      //       },
-      //       options: {
-      //         responsive: true,
-      //         title: {
-      //           display: true,
-      //           text: '各時間點當下的人潮',
-      //           fontSize: 10
-      //         },
-      //         tooltips: {
-      //           mode: 'index',
-      //           intersect: false
-      //         },
-      //         scales: {
-      //           xAxes: [{
-      //             type: 'time',
-      //             time: {
-      //               parser: timeFormat,
-      //               tooltipFormat: 'HH:mm'
-      //             },
-      //             scaleLabel: {
-      //               display: false,
-      //               labelString: '活動時間'
-      //             },
-      //             ticks: {
-      //                       fontSize: 9
-      //                   }
-      //           }],
-      //           yAxes: [{
-      //             scaleLabel: {
-      //               display: false,
-      //             },
-      //             ticks: {
-      //                       fontSize: 9
-      //                   }
-      //           }]
-      //         },
-      //         legend: {
-      //                 display:false,
-      //                 labels: {
-      //                      fontSize: 9
-      //                 }
-      //             }
-      //       }
-      //     };
-      //     var ctx_FigFtime = document.getElementById('canvas_FigFtime').getContext('2d');
-      //     window.theFigFtime = new Chart(ctx_FigFtime, configFigFtime);
-      // }
-
-      // function removeShades(){
-      //   map.removeLayer(r)
-      //   map.removeLayer(shades)
-      //   r = map.editTools.startRectangle()
-      //   shades.addTo(map);
-      //   $("#villageTable").html("<th colspan=\"4\" style=\"text-align: center;\">請先選擇範圍</th>")
-      // }
-
 
 
       function setTheSelectedClock(ftimeIndex,f_index){
@@ -252,7 +182,6 @@
 
       function showDataInMap(thePointLogs, indexTime){
         thisPointLogs = thePointLogs[indexTime]
-        console.log(thisPointLogs)
         showItemAll = []
 
         for( itemP in thisPointLogs ){
@@ -268,34 +197,9 @@
           }
           
         }
-        console.log(markers)
         map.addLayer(markers)
-        console.log(map)
 
 
-      // for (var i = 0; i < ftimeIndex[indexFtime].length; i++) {
-      //   var a = addressPoints[i];
-      //   var title = a[2];
-      //   var marker = L.marker(new L.LatLng(a[0], a[1]), { title: title });
-      //   marker.bindPopup(title);
-      //   markers.addLayer(marker);
-      // }
-
-      // map.addLayer(markers);
-
-
-
-        // for( itemP in thisPointLogs ){
-        //   xyArr = itemP.split("_")
-        //   x = parseFloat(xyArr[0])
-        //   y = parseFloat(xyArr[1])
-        //   thisWeight = parseInt(thisPointLogs[itemP])
-        //   itemSeeeet = {lat: y , lng: x , count:thisWeight}
-        //   showItemAll.push(itemSeeeet)
-        // }
-        // var testData = {max : maxVal , data:showItemAll}
-
-        // heatmapLayer.setData(testData)
       }
 
 
